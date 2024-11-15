@@ -1,0 +1,45 @@
+---
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: action
+name: Invoke Elastic Beanstalk Action
+description: Update an Elastic Beanstalk environment with a new application version
+inputs:
+  application-name:
+    description:  The Elastic Beanstalk application name
+    required: true
+  s3-bucket:
+    description: The S3 bucket name
+    required: true
+  s3-key:
+    description: The S3 key for the source bundle
+    required: true
+  version-label:
+    description: The Elastic Beanstalk application version label to be created from the source bundle
+    required: true
+  environment-name:
+    description: The Elastic Beanstalk environment to update
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: invoke-aws-elastic-beanstalk-job
+      name: invoke-aws-elastic-beanstalk-job
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/aws-elastic-beanstalk-invoke-actions:main-ea9c84f954634065143528e8f815e6e8f8d90420
+      shell: sh
+      env:
+        CONFIG_JSON: '{"metaInfo":{"applicationName":"${{ inputs.application-name}}","s3Bucket":"${{ inputs.s3-bucket}}","s3Key":"${{ inputs.s3-key}}","versionLabel":"${{ inputs.version-label}}","environmentName":"${{ inputs.environment-name}}"}}'
+        RUN_ID: ${{ cloudbees.run_id }}
+        JOB_ID: ${{ job.id }}
+        STEP_ID: ${{ step.internal.id }}
+        DNS_URL: ${{ cloudbees.api.url }}
+        JWT_TOKEN: ${{ cloudbees.api.token }}
+      run: |
+        set -x
+        cd /app
+        ./aws_elastic_beanstalk_actions_app invoke -i $CONFIG_JSON
+        
+  
+
+
+        
