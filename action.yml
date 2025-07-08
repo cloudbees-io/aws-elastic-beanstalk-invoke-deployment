@@ -38,8 +38,3 @@ runs:
         set -x
         cd /app
         ./aws_elastic_beanstalk_actions_app invoke -i $CONFIG_JSON
-        
-  
-
-
-        
