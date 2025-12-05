@@ -13,19 +13,6 @@ Use this action to create a new application version from a source bundle, and up
 | Required?
 | Description
 
-:
-    description: 
-    required: true
-  :
-    description: 
-    required: true
-  :
-    description: 
-    required: true
-  :
-    description: 
-    required: true
-
 | `application-name`
 | String
 | Yes
