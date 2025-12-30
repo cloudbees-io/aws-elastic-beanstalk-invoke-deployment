@@ -25,7 +25,7 @@ runs:
   steps:
     - id: invoke-aws-elastic-beanstalk-job
       name: invoke-aws-elastic-beanstalk-job
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/aws-elastic-beanstalk-invoke-actions:main-5a5764e07014ad655958bb7ce4ea4c4ccb988799
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/aws-elastic-beanstalk-invoke-actions:main-59f9b81a2903b042ad791a587c26cc151f15f928
       shell: sh
       env:
         CONFIG_JSON: '{"metaInfo":{"applicationName":"${{ inputs.application-name}}","s3Bucket":"${{ inputs.s3-bucket}}","s3Key":"${{ inputs.s3-key}}","versionLabel":"${{ inputs.version-label}}","environmentName":"${{ inputs.environment-name}}"}}'
